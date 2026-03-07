@@ -29,8 +29,21 @@ COPY . /app
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+# Fix storage and bootstrap/cache permissions (fixes 500 errors)
+RUN mkdir -p storage/framework/sessions \
+    storage/framework/views \
+    storage/framework/cache \
+    storage/logs \
+    bootstrap/cache \
+    && chmod -R 775 storage \
+    && chmod -R 775 bootstrap/cache
+
+# Cache Laravel config for production
+RUN php artisan config:cache || true
+RUN php artisan route:cache || true
+
 # Expose port (Render sets the PORT environment variable dynamically)
 EXPOSE 8000
 
-# Run Laravel development server
+# Run Laravel server
 CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
