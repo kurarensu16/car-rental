@@ -17,12 +17,16 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        $this->scan();
-        return Notification::whereNull('read_at')
-            ->orWhere('created_at', '>=', now()->subDays(3))
-            ->orderBy('read_at', 'asc')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        try {
+            $this->scan();
+            return Notification::whereNull('read_at')
+                ->orWhere('created_at', '>=', now()->subDays(3))
+                ->orderBy('read_at', 'asc')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } catch (\Exception $e) {
+            return response()->json([]);
+        }
     }
 
     /**
