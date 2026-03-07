@@ -17,11 +17,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@carrentalpro.com',
-            'password' => bcrypt('password'),
-        ]);
+        User::firstOrCreate(
+            ['email' => env('ADMIN_EMAIL', 'admin@carrentalpro.com')],
+            [
+                'name' => 'Admin User',
+                'password' => bcrypt(env('ADMIN_PASSWORD', 'changeme')),
+            ]
+        );
 
         // Cars
         $car1 = \App\Models\Car::create([
