@@ -38,12 +38,11 @@ RUN mkdir -p storage/framework/sessions \
     && chmod -R 775 storage \
     && chmod -R 775 bootstrap/cache
 
-# Cache Laravel config for production
-RUN php artisan config:cache || true
-RUN php artisan route:cache || true
+# Make startup script executable
+RUN chmod +x /app/start.sh
 
-# Expose port (Render sets the PORT environment variable dynamically)
+# Expose port
 EXPOSE 8000
 
-# Run Laravel server
-CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
+# Use startup script so config:cache runs at runtime with real env vars
+CMD ["/bin/bash", "/app/start.sh"]
