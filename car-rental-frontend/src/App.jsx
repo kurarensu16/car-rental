@@ -34,8 +34,8 @@ import NotificationPopover from './components/NotificationPopover';
 import Toast from './components/Toast';
 import Login from './pages/Login';
 import axios from 'axios';
+import api from './api';
 
-const api = axios.create({ baseURL: 'http://localhost:8000/api' });
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);

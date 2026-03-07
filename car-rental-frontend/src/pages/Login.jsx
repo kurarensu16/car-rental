@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import api from '../api';
 import {
     CarFront,
     Mail,
@@ -26,7 +27,7 @@ export default function Login({ onLogin }) {
         setIsLoading(true);
 
         try {
-            const res = await axios.post('http://localhost:8000/api/login', {
+            const res = await api.post('/login', {
                 email,
                 password
             });
