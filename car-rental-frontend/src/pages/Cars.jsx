@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import {
     Plus,
     Search,
@@ -25,7 +24,7 @@ import {
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const api = axios.create({ baseURL: 'http://localhost:8000/api' });
+import api from '../api';
 
 export default function Cars({ user, showToast }) {
     const navigate = useNavigate();

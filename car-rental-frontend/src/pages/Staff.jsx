@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import {
     UserPlus,
     CheckCircle2,
     AlertCircle,
 } from 'lucide-react';
 
-const api = axios.create({ baseURL: 'http://localhost:8000/api' });
+import api from '../api';
 
 export default function CreateStaff({ showToast }) {
     const [isLoading, setIsLoading] = useState(false);

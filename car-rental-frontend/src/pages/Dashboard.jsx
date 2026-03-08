@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {
     Car,
@@ -20,7 +19,7 @@ import {
     BarChart, Bar, Cell
 } from 'recharts';
 
-const api = axios.create({ baseURL: 'http://localhost:8000/api' });
+import api from '../api';
 
 export default function Dashboard() {
     const navigate = useNavigate();

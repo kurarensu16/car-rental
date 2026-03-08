@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import {
     Plus,
     Search,
@@ -24,7 +23,7 @@ import {
     Truck
 } from 'lucide-react';
 
-const api = axios.create({ baseURL: 'http://localhost:8000/api' });
+import api from '../api';
 
 export default function Drivers({ user, showToast }) {
     const [drivers, setDrivers] = useState([]);

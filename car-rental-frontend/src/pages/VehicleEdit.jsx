@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import {
     Car,
     Save,
@@ -15,7 +14,7 @@ import {
     Image as ImageIcon
 } from 'lucide-react';
 
-const api = axios.create({ baseURL: 'http://localhost:8000/api' });
+import api from '../api';
 
 export default function VehicleEdit({ showToast }) {
     const { id } = useParams();

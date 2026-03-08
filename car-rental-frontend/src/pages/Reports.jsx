@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
     LineChart, Line, AreaChart, Area
@@ -15,7 +14,7 @@ import {
     Filter
 } from 'lucide-react';
 
-const api = axios.create({ baseURL: 'http://localhost:8000/api' });
+import api from '../api';
 
 export default function Reports() {
     const [activeTab, setActiveTab] = useState('revenue'); // revenue, utilization

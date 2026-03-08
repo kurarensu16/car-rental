@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import {
     Plus,
     Calendar,
@@ -29,7 +28,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const api = axios.create({ baseURL: 'http://localhost:8000/api' });
+import api from '../api';
 
 export default function Bookings() {
     const [bookings, setBookings] = useState([]);

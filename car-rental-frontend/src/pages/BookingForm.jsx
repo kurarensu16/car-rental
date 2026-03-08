@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {
     User,
@@ -17,7 +16,7 @@ import {
     UserPlus
 } from 'lucide-react';
 
-const api = axios.create({ baseURL: 'http://localhost:8000/api' });
+import api from '../api';
 
 export default function BookingForm({ showToast }) {
     const navigate = useNavigate();
