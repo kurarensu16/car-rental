@@ -20,28 +20,36 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'make' => 'required|string',
-            'model' => 'required|string',
-            'category' => 'required|string',
-            'year' => 'required|integer',
-            'registration_number' => 'required|string|unique:cars',
-            'image_url' => 'nullable|string',
-            'status' => 'nullable|string',
-            'color' => 'nullable|string',
-            'fuel_type' => 'nullable|string',
-            'transmission' => 'nullable|string',
-            'seats' => 'nullable|integer',
-            'registration_expiry' => 'nullable|date',
-            'insurance_expiry' => 'nullable|date',
-        ]);
+        try {
+            $validated = $request->validate([
+                'make' => 'required|string',
+                'model' => 'required|string',
+                'category' => 'required|string',
+                'year' => 'required|integer',
+                'registration_number' => 'required|string|unique:cars',
+                'image_url' => 'nullable|string',
+                'status' => 'nullable|string',
+                'color' => 'nullable|string',
+                'fuel_type' => 'nullable|string',
+                'transmission' => 'nullable|string',
+                'seats' => 'nullable|integer',
+                'registration_expiry' => 'nullable|date',
+                'insurance_expiry' => 'nullable|date',
+            ]);
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('cars', 'public');
-            $validated['image_url'] = asset('storage/' . $path);
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('cars', 'public');
+                $validated['image_url'] = asset('storage/' . $path);
+            }
+
+            return \App\Models\Car::create($validated);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile()
+            ], 500);
         }
-
-        return \App\Models\Car::create($validated);
     }
 
     /**
