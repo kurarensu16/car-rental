@@ -11,8 +11,12 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('cars', function (Blueprint $table) {
-            $table->string('category')->default('Standard')->after('model');
-            $table->string('image_url')->nullable()->after('registration_number');
+            if (!Schema::hasColumn('cars', 'category')) {
+                $table->string('category')->default('Standard')->after('model');
+            }
+            if (!Schema::hasColumn('cars', 'image_url')) {
+                $table->string('image_url')->nullable()->after('registration_number');
+            }
         });
     }
 

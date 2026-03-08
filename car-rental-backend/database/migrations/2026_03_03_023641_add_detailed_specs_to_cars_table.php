@@ -11,12 +11,24 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('cars', function (Blueprint $table) {
-            $table->string('color')->nullable();
-            $table->string('fuel_type')->default('Gasoline');
-            $table->string('transmission')->default('Automatic');
-            $table->integer('seats')->default(5);
-            $table->date('registration_expiry')->nullable();
-            $table->date('insurance_expiry')->nullable();
+            if (!Schema::hasColumn('cars', 'color')) {
+                $table->string('color')->nullable();
+            }
+            if (!Schema::hasColumn('cars', 'fuel_type')) {
+                $table->string('fuel_type')->default('Gasoline');
+            }
+            if (!Schema::hasColumn('cars', 'transmission')) {
+                $table->string('transmission')->default('Automatic');
+            }
+            if (!Schema::hasColumn('cars', 'seats')) {
+                $table->integer('seats')->default(5);
+            }
+            if (!Schema::hasColumn('cars', 'registration_expiry')) {
+                $table->date('registration_expiry')->nullable();
+            }
+            if (!Schema::hasColumn('cars', 'insurance_expiry')) {
+                $table->date('insurance_expiry')->nullable();
+            }
         });
     }
 

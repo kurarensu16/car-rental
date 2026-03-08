@@ -9,8 +9,12 @@ php artisan config:cache
 php artisan route:cache
 
 # Run migrations
-php artisan migrate --force
-
+if [ "$WIPE_DB" = "true" ]; then
+    echo "WIPE_DB is true. Running migrate:fresh to rebuild database..."
+    php artisan migrate:fresh --force
+else
+    php artisan migrate --force
+fi
 # Run seeders only if database is empty (no users yet)
 USER_COUNT=$(php artisan tinker --execute="echo \App\Models\User::count();" 2>/dev/null | tail -1)
 if [ "$USER_COUNT" = "0" ] || [ -z "$USER_COUNT" ]; then
