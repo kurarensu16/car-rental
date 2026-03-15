@@ -142,7 +142,7 @@ function App() {
       { name: 'Bookings', href: '/bookings', icon: CalendarRange },
     ];
 
-    if (user?.role === 'Admin' || user?.role === 'Manager') {
+    if (user?.role && ['admin', 'manager', 'staff'].includes(user.role.toLowerCase())) {
       baseNav.push({ name: 'Reports', href: '/reports', icon: TrendingUp });
     }
 
@@ -308,7 +308,7 @@ function App() {
               <Route path="/drivers" element={<Drivers user={user} showToast={showToast} />} />
               <Route path="/bookings" element={<Bookings user={user} showToast={showToast} />} />
               <Route path="/bookings/new" element={<BookingForm user={user} showToast={showToast} />} />
-              {(user?.role === 'Admin' || user?.role === 'Manager') && (
+              {(user?.role && ['admin', 'manager', 'staff'].includes(user.role.toLowerCase())) && (
                 <Route path="/reports" element={<Reports user={user} showToast={showToast} />} />
               )}
               <Route path="/profile" element={<Profile user={user} setUser={handleLogin} showToast={showToast} />} />
